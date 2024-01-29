@@ -1,0 +1,23 @@
+
+/*Writer Process*/
+#include<stdio.h>
+#include<fcntl.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<unistd.h>
+int main()
+{
+    int fd;
+    char buff[1024];
+    /*Create FIFO(named pipe)*/
+    char *myfifo="/tmp/myfifo.txt";
+    mkfifo(myfifo,0666);
+    printf("Run Reader process to read fifo file\n");
+    fd=open(myfifo,O_WRONLY);
+    write(fd,"Hi",sizeof("Hi"));
+    /*Wrtie "Hi" to the FIFO*/
+    close(fd);
+    unlink(myfifo);/*remove FIFO*/
+    return 0;
+    
+}
