@@ -1,0 +1,20 @@
+#include<fcntl.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<stdio.h>
+#define MAX_BUFF 1024
+
+int main()
+{
+    int fd;
+    /* A temp FIFO file is not created in Reader */
+    char  *myfifo="/tmp/myfifo.txt";
+    char buff[MAX_BUFF];
+    /* Open,Read, and Display Message from FIFO */
+    fd=open(myfifo,O_RDONLY);
+    read(fd,buff,MAX_BUFF);
+    printf("Writer:%s\n",buff);
+    close(fd);
+    return 0;
+}
